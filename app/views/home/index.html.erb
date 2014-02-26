@@ -1,1 +1,7 @@
 Hi guys!
+<script type="text/javascript">
+$(function(){
+    App.start({ posts: <%= @posts.to_json.html_safe -%>});
+});
+</script>
+<div id="main"></div>

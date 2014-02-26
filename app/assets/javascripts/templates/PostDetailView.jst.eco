@@ -1,0 +1,5 @@
+<div><input type="text" class="post-title" value="<%= @title %>" /></div>
+<div><textarea class="post-content" rows="10" cols="30"><%= @content %></textarea></div>
+<div>
+  <button>Save</button>
+</div>

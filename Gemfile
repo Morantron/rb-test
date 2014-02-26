@@ -28,11 +28,11 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 # SPA stuff
-gem 'backbone-rails'
+gem 'backbone-rails', '0.9.10'
 gem 'marionette-rails'
 
-# Include bootstrap
-#gem 'bootstrap-sass'
+# Template engine
+gem 'eco'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
