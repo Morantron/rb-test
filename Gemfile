@@ -27,8 +27,12 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# SPA stuff
 gem 'backbone-rails'
 gem 'marionette-rails'
+
+# Include bootstrap
+#gem 'bootstrap-sass'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
