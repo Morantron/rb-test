@@ -34,6 +34,9 @@ gem 'marionette-rails'
 # Template engine
 gem 'eco'
 
+# Bootstrap
+gem 'bootstrap-sass-rails'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

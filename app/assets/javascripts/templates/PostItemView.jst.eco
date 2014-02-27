@@ -1,3 +1,9 @@
-<li>
-  <a href="#show/<%= @id %>"><%= @title %></a>, <%= @content %>
-</li>
+<td>#<%= @id %></td>
+<td><a href="#show/<%= @id %>"><%= @title %></a></td>
+<td><%= @content %></td>
+<td>
+  <ul class="item-action-container list list-inline pull-right">
+    <li class="item-action"><i class="glyphicon glyphicon-pencil"></i></li>
+    <li class="item-action"><i class="glyphicon glyphicon-trash"></i></li>
+  </ul>
+</td>

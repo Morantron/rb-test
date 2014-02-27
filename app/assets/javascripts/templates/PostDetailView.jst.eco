@@ -1,5 +1,18 @@
-<div><input type="text" class="post-title" value="<%= @title %>" /></div>
-<div><textarea class="post-content" rows="10" cols="30"><%= @content %></textarea></div>
-<div>
-  <button>Save</button>
-</div>
+<form role="form">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" name="title" class="form-control" value="<%= @title %>"/>
+  </div>
+  <div class="form-group">
+    <label>Content</label>
+    <textarea name="content" class="form-control"><%= @content %></textarea>
+  </div>
+  <div class="form-group">
+    <a href="#" class="btn btn-default">&larr;Back</a>
+    <button class="btn btn-success save" disabled="disabled">Save</button>
+    <% if @id: %>
+    <button href="#" class="btn btn-danger delete">Delete</button>
+    <% end %>
+    <span class="small label pull-right">Last edited on: <%= @updated_at %></span>
+  </div>
+</form>

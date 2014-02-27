@@ -42,9 +42,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     if @post.destroy
-      render status: :ok
+      #render status: :ok
     else
-      render status: :bad_request
+      #render status: :bad_request
     end
   end
 
@@ -52,7 +52,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     if @post.update(post_params)
-      redirect_to @post
+      render json: @post
     else
       render status: :bad_request
     end

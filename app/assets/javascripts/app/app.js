@@ -21,12 +21,11 @@ App.addInitializer(function(data){
     main : '#main'
   });
 
+  var controller = new App.PostsController.Controller(data.posts);
   var Router = Marionette.AppRouter.extend({});
 
-  var router = new Router();
-  var controller = new App.PostsController.Controller(data.posts);
-
-  router.processAppRoutes(controller, {
+  App.router = new Router();
+  App.router.processAppRoutes(controller, {
       "": "start",
       "show/:id": "show"
   });
