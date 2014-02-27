@@ -1,6 +1,17 @@
-<td>#<%= @id %></td>
-<td><a href="#show/<%= @id %>"><%= @title %></a></td>
-<td><%= @content %></td>
+<td>
+  #<%= @id %>
+</td>
+<td>
+  <a href="#show/<%= @id %>">
+    <%= @title %>
+    <% if !@title: %><i>Untitled post</i><% end %>
+  </a>
+</td>
+<td>
+  <% # TODO trim content if it's too long %>
+  <%= @content %>
+  <% if !@content: %><i>No content</i><% end %>
+</td>
 <td>
   <ul class="item-action-container list list-inline pull-right">
     <li class="item-action"><i class="glyphicon glyphicon-pencil"></i></li>

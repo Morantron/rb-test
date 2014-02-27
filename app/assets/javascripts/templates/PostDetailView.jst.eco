@@ -1,11 +1,11 @@
 <form role="form">
   <div class="form-group">
     <label>Title</label>
-    <input type="text" name="title" class="form-control" value="<%= @title %>"/>
+    <input type="text" name="title" class="form-control" value="<%= @title %>" placeholder="Post title"/>
   </div>
   <div class="form-group">
     <label>Content</label>
-    <textarea name="content" class="form-control"><%= @content %></textarea>
+    <textarea name="content" class="form-control" placeholder="Post content"><%= @content %></textarea>
   </div>
   <div class="form-group">
     <a href="#" class="btn btn-default">&larr;Back</a>
