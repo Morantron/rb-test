@@ -29,7 +29,6 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
 
       App.vent.on('new:post', function(model){
         App.vent.trigger('notification:success', 'New post added.');
-        that.gotoPage(that.getCurrentPage());
       });
 
       App.vent.on('delete:post', function(model){

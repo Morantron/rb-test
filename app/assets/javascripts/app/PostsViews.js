@@ -2,15 +2,35 @@
 
 App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
 
+  var helperFunctions = {
+    deletePost: function(){
+      if( confirm('Are you sure you want to delete this post?') ){
+        this.model.destroy();
+        App.vent.trigger("delete:post");
+        App.router.navigate("#", { trigger: true});
+      }
+      event.preventDefault();
+    },
+  };
+
   PostsViews.Item = Marionette.ItemView.extend({
     tagName: 'tr',
     template: 'templates/PostItemView',
+    events: {
+      'click .delete-button' : 'deletePost'
+    },
+    deletePost: helperFunctions.deletePost
   });
 
   PostsViews.List = Marionette.CompositeView.extend({
     template: 'templates/PostCompositeView',
     itemViewContainer: 'tbody',
-    itemView: PostsViews.Item
+    itemView: PostsViews.Item,
+    templateHelpers: function(){
+      return {
+        postCount: this.collection.length
+      };
+    }
   });
 
   PostsViews.Detail = Marionette.ItemView.extend({
@@ -41,12 +61,7 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
     modelChanged: function(){
       this.ui.saveButton.prop('disabled', false);
     },
-    deletePost: function(){
-      this.model.destroy();
-      App.vent.trigger("delete:post");
-      App.router.navigate("#", { trigger: true});
-      event.preventDefault();
-    },
+    deletePost: helperFunctions.deletePost,
     savePost: function(event){
       var that = this;
       var isNew = that.model.isNew();

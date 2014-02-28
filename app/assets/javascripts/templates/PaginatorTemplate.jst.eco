@@ -1,3 +1,4 @@
+<%if @totalRecords > 0: %>
 <ul class="pagination">
   <% if @currentPage != @firstPage: %>
   <li><a href="#/page/<%= @currentPage - 1 %>">&laquo;</a></li>
@@ -15,3 +16,4 @@
   <li class="disabled"><a>&raquo;</a></li>
   <% end %>
 </ul>
+<% end %>

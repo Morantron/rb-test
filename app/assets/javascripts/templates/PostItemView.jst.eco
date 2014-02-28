@@ -14,7 +14,7 @@
 </td>
 <td>
   <ul class="item-action-container list list-inline pull-right">
-    <li class="item-action"><i class="glyphicon glyphicon-pencil"></i></li>
-    <li class="item-action"><i class="glyphicon glyphicon-trash"></i></li>
+    <li class="item-action edit-button"><a href="#/show/<%= @id %>" class="glyphicon glyphicon-pencil"></a></li>
+    <li class="item-action delete-button"><i class="glyphicon glyphicon-trash"></i></li>
   </ul>
 </td>

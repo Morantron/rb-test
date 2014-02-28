@@ -11,5 +11,10 @@
   </thead>
   <tbody></tbody>
 </table>
+<% if @postCount == 0: %>
+<div class="text-center">
+  There are no posts. <a href="#/show/new">Add one.</a>
+</div>
+<% end %>
 
 <div id="paginator"></div>
