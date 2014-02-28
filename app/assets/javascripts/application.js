@@ -14,4 +14,5 @@
 //= require underscore
 //= require backbone
 //= require backbone.marionette
+//= require backbone.pageable
 //= require_tree .

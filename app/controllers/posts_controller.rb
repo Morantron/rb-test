@@ -13,9 +13,18 @@ class PostsController < ApplicationController
       #root GET    /                         home#index
 
   def index
-    @posts = Post.all
+    max_limit = 1000
+    limit = (params[:limit].present? ? params[:limit] : max_limit).to_i
+    offset = (params[:offset].present? ? params[:offset] : 0).to_i
 
-    render json: @posts
+    if limit > max_limit
+      render json: { error: 'Limit too large' }, status: :bad_request
+    else
+      logger.debug "limit: #{limit}, offset: #{offset}"
+      response.headers['X-Count'] = "#{Post.count}"
+      @posts = Post.order('created_at DESC').limit(limit).offset(offset)
+      render json: @posts
+    end
   end
 
   def show

@@ -14,12 +14,24 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
   });
 
   PostsViews.Detail = Marionette.ItemView.extend({
+    initialize: function(options){
+      _.defaults(options, {
+        currentPage: 0
+      });
+      this.currentPage = options.currentPage;
+    },
     template: 'templates/PostDetailView',
+    serializeData: function(){
+      return _.extend(this.model.toJSON(), {
+                currentPage: this.currentPage
+              });
+    },
     ui: {
       saveButton: '.save',
       deleteButton: '.delete',
       titleInput: 'input[name=title]',
-      contentTextArea: 'textarea[name=content]'
+      contentTextArea: 'textarea[name=content]',
+      backButton: '.history-back'
     },
     events: {
       'click @ui.deleteButton' : 'deletePost',
@@ -31,6 +43,7 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
     },
     deletePost: function(){
       this.model.destroy();
+      App.vent.trigger("delete:post");
       App.router.navigate("#", { trigger: true});
       event.preventDefault();
     },

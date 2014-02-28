@@ -18,16 +18,18 @@ App.addInitializer(function(data){
   console.log('init app', arguments);
 
   App.addRegions({
-    main : '#main'
+    main : '#main',
+    paginator: "#paginator"
   });
 
-  var controller = new App.PostsController.Controller(data.posts);
+  var controller = new App.PostsController.Controller(data);
   var Router = Marionette.AppRouter.extend({});
 
   App.router = new Router();
   App.router.processAppRoutes(controller, {
-      "": "start",
-      "show/:id": "show"
+    "": "showList",
+    "show/:id": "showDetail",
+    "page/:pageNumber": "gotoPage"
   });
 
   Backbone.history.start();

@@ -1,9 +1,13 @@
 <script type="text/javascript">
 $(function(){
-    App.start({ posts: <%= @posts.to_json.html_safe -%>});
+    App.start({ 
+      posts: <%= @posts.to_json.html_safe -%>,
+      totalPostCount: <%= @total_post_count %>
+    });
 });
 </script>
 
 <h1>Redbooth Homework</h1>
 
 <div id="main"></div>
+<div id="paginator"></div>

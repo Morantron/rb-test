@@ -1,0 +1,17 @@
+<ul class="pagination">
+  <% if @currentPage != @firstPage: %>
+  <li><a href="#/page/<%= @currentPage - 1 %>">&laquo;</a></li>
+  <% else: %> 
+  <li class="disabled"><a>&laquo;</a></li>
+  <% end %>
+  <% for i in [0..@totalPages-1]: %>
+  <li <% if @currentPage == i: %> class="active" <% end %>>
+    <a href="#/page/<%= i %>"><%= i + 1 %></a>
+  </li>
+  <% end %>
+  <% if @currentPage != @lastPage: %>
+  <li><a href="#/page/<%= @currentPage + 1 %>">&raquo;</a></li>
+  <% else: %> 
+  <li class="disabled"><a>&raquo;</a></li>
+  <% end %>
+</ul>

@@ -31,6 +31,8 @@ gem 'jbuilder', '~> 1.2'
 gem 'backbone-rails', '0.9.10'
 gem 'marionette-rails'
 
+gem 'bower-rails'
+
 # Template engine
 gem 'eco'
 
@@ -52,8 +54,7 @@ end
 # gem 'capistrano', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
-#
+#gem 'debugger', group: [:development, :test]
 
 gem 'rails_12factor', group: :production
 
