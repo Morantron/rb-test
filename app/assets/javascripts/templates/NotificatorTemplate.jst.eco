@@ -1,0 +1,5 @@
+<div class="notificator-container">
+  <div class="alert <%= @className %>">
+    <%= @message %>
+  </div>
+</div>

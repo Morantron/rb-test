@@ -10,7 +10,8 @@ App.addInitializer(function(data){
   console.log('init app', arguments);
 
   App.addRegions({
-    main : '#main'
+    main : '#main',
+    notificator: '#notificator'
   });
 
   var controller = new App.PostsController.Controller(data);

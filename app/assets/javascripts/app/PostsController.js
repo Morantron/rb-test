@@ -25,8 +25,15 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
       });
 
       this.showList();
+      this.showNotificator();
 
-      App.vent.on('delete:post', function(){
+      App.vent.on('new:post', function(model){
+        App.vent.trigger('notification:success', 'New post added.');
+        that.gotoPage(that.getCurrentPage());
+      });
+
+      App.vent.on('delete:post', function(model){
+        App.vent.trigger('notification:warning', 'Post deleted.');
         that.gotoPage(that.getCurrentPage());
       });
     },
@@ -63,6 +70,11 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
       } else {
         this._showDetailView(post);
       }
+    },
+    showNotificator: function(){
+      App.notificator.show(
+        new App.NotificatorView.View()
+      );
     },
     gotoPage: function(pageNumber){
       pageNumber = parseInt(pageNumber);
