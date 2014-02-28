@@ -26,19 +26,22 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
 
       this.showList();
 
-      //App.vent.on('new:post', this._refreshCurrentPage);
       App.vent.on('delete:post', function(){
         that.gotoPage(that.getCurrentPage());
       });
     },
     showList: function(){
-      App.main.show(
+      // render post list and paginator with paginated list layout
+      var layout = new App.PaginatorView.PaginatedListLayout();
+      App.main.show(layout);
+
+      App.main.currentView.list.show(
         new App.PostsViews.List({
           collection: this.posts
         })
       );
 
-      App.paginator.show(
+      App.main.currentView.paginator.show(
         new App.PaginatorView.View({
           collection: this.posts
         })
@@ -50,6 +53,7 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
                   this.posts.get(id);
 
       var that = this;
+
       // freshly added post, not in current page
       if( !post ){
         post = new App.Posts.Post({ id: id });

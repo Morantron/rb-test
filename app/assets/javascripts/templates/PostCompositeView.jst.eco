@@ -11,3 +11,5 @@
   </thead>
   <tbody></tbody>
 </table>
+
+<div id="paginator"></div>
