@@ -2,19 +2,16 @@
 
 App.module('Posts', function(Posts, App, Backbone, Marionette, $, _){
   Posts.Post = Backbone.Model.extend({
-    urlRoot : '/posts'
+    urlRoot : '/posts',
+    defaults: {
+      title: '',
+      content: '',
+      created_at: '',
+      updated_at: ''
+    }
   });
 
   Posts.PostList = Backbone.PageableCollection.extend({
-    //initialize: function(){
-      //var that = this;
-      //this.fetch({
-        //success: function(collection, response, options){
-          //console.log('state', that.state);
-          //that.state.totalRecords = parseInt(options.xhr.getResponseHeader('X-Count'));
-        //}
-      //});
-    //},
     url: '/posts',
     model: Posts.Post,
     queryParams: {

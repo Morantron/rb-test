@@ -7,7 +7,7 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
         posts: [],
         currentPage: 0,
         pageSize: 5,
-        totalCount: options.posts.length
+        totalCount: options.posts && options.posts.length
       });
 
       var that = this;
