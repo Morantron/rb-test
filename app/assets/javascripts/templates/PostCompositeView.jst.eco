@@ -3,10 +3,10 @@
 <table class="table">
   <thead>
     <tr>
-      <th>#ID</th>
-      <th>Title</th>
-      <th>Content</th>
-      <th></th>
+      <th class="column-id">#ID</th>
+      <th class="column-title">Title</th>
+      <th class="column-content">Content</th>
+      <th class="column-actions"></th>
     </tr>
   </thead>
   <tbody></tbody>

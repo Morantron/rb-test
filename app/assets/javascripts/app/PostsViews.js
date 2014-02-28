@@ -21,6 +21,21 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
   PostsViews.Item = Marionette.ItemView.extend({
     tagName: 'tr',
     template: 'templates/PostItemView',
+    serializeData: function(){
+      var excerptLength = 250;
+      var postContent = this.model.get('content');
+
+      var output = _.extend(this.model.toJSON(),{
+        excerpt: this.model.get('content').slice(0, excerptLength)
+      });
+
+      // add ellipsis to post excerpt if it's too large.
+      if( output.excerpt.length >= excerptLength ){
+        output.excerpt += ' ...';
+      }
+
+      return output;
+    },
     events: {
       'click .delete-button' : 'deletePost'
     },

@@ -1,18 +1,18 @@
-<td>
+<td class="column-id">
   #<%= @id %>
 </td>
-<td>
+<td class="column-title">
   <a href="#show/<%= @id %>">
     <%= @title %>
     <% if !@title: %><i>Untitled post</i><% end %>
   </a>
 </td>
-<td>
+<td class="column-content">
   <% # TODO trim content if it's too long %>
-  <%= @content %>
+  <%= @excerpt %>
   <% if !@content: %><i>No content</i><% end %>
 </td>
-<td>
+<td class="column-action">
   <ul class="item-action-container list list-inline pull-right">
     <li class="item-action edit-button"><a href="#/show/<%= @id %>" class="glyphicon glyphicon-pencil"></a></li>
     <li class="item-action delete-button"><i class="glyphicon glyphicon-trash"></i></li>
