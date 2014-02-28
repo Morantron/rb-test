@@ -72,8 +72,8 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
       var isNew = that.model.isNew();
 
       this.model.save({
-        'title': this.ui.titleInput.val(),
-        'content': this.ui.contentTextArea.val()
+        'title': this.ui.titleInput.val().trim(),
+        'content': this.ui.contentTextArea.val().trim()
       }).done(function(model){
         if( isNew ){
           App.vent.trigger('new:post', that.model);
