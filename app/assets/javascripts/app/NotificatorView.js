@@ -1,18 +1,30 @@
 //= require app/app.js
 
 App.module('NotificatorView', function(NotificatorView, App, Backbone, Marionette, $, _){
+
+  // NotificatorView: shows notifications through the app mediator.
   NotificatorView.View = Marionette.ItemView.extend({
     template: 'templates/NotificatorTemplate',
+
     initialize: function(options){
+      var that = this;
+
       options = options || {};
       _.defaults(options,{
-        defaultDuration: 3000
+        defaultDuration: 3000,
+        // CSS classes to style different kind of messages
+        classNames: {
+          'info': 'alert-info',
+          'warning': 'alert-warning',
+          'success': 'alert-success',
+          'error': 'alert-danger'
+        }
       });
 
       this.defaultDuration = options.defaultDuration;
+      this.classNames = options.classNames;
 
-      var that = this;
-
+      // listen to notification events in app mediator.
       App.vent.on('notification:info', function(message){
         that.info(message);
       });
@@ -29,15 +41,21 @@ App.module('NotificatorView', function(NotificatorView, App, Backbone, Marionett
         that.success(message);
       });
     },
+
+    // Expose message and a className without the need of a model.
     serializeData: function(){
       return {
         message: this.message,
         className: this.notificationType
       };
     },
+
+    // Hides notificator before rendering to achieve a proper fade-in effect
     onBeforeRender: function(){
       this.$el.hide();
     },
+
+    // Shows a message for limited amount of time. Fades in, then fades out.
     show: function(msg, ms, notificationType){
       this.message = msg;
       this.notificationType = this.classNames[notificationType];
@@ -45,28 +63,27 @@ App.module('NotificatorView', function(NotificatorView, App, Backbone, Marionett
       this.$el.fadeIn();
       setTimeout(_.bind(this.hide, this), ms || this.defaultDuration);
     },
+
     hide: function(){
       this.$el.fadeOut();
     },
+
     info: function(msg, ms){
       this.show(msg, ms, 'info');
     },
+
     warning: function(msg, ms){
       this.show(msg, ms, 'warning');
     },
+
     error: function(msg, ms){
       this.show(msg, ms, 'error');
     },
+
     success: function(msg, ms){
       this.show(msg, ms, 'success');
     }
   });
 
-  NotificatorView.View.prototype.classNames = {
-    'info': 'alert-info',
-    'warning': 'alert-warning',
-    'success': 'alert-success',
-    'error': 'alert-danger'
-  };
 
 });

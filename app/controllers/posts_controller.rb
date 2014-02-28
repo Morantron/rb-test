@@ -1,17 +1,9 @@
 class PostsController < ApplicationController
 
-    #Prefix Verb   URI Pattern               Controller#Action
-#home_index GET    /home/index(.:format)     home#index
-     #posts GET    /posts(.:format)          posts#index {:format=>"json"}
-           #POST   /posts(.:format)          posts#create {:format=>"json"}
-  #new_post GET    /posts/new(.:format)      posts#new {:format=>"json"}
- #edit_post GET    /posts/:id/edit(.:format) posts#edit {:format=>"json"}
-      #post GET    /posts/:id(.:format)      posts#show {:format=>"json"}
-           #PATCH  /posts/:id(.:format)      posts#update {:format=>"json"}
-           #PUT    /posts/:id(.:format)      posts#update {:format=>"json"}
-           #DELETE /posts/:id(.:format)      posts#destroy {:format=>"json"}
-      #root GET    /                         home#index
-
+  # GET /posts
+  # Accepts 'limit' and 'offset' params in query string to perform pagination.
+  # Also it adds an 'X-Count' response header to inform about the total count
+  # of posts.
   def index
     max_limit = 1000
     limit = (params[:limit].present? ? params[:limit] : max_limit).to_i
@@ -27,6 +19,7 @@ class PostsController < ApplicationController
     end
   end
 
+  # GET /posts/:id
   def show
     @post = Post.find(params[:id])
 
@@ -37,6 +30,7 @@ class PostsController < ApplicationController
     end
   end
 
+  # POST /posts
   def create
     @post = Post.new(post_params)
 
@@ -47,6 +41,7 @@ class PostsController < ApplicationController
     end
   end
 
+  # DELETE /posts/:id
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
@@ -58,6 +53,7 @@ class PostsController < ApplicationController
     end
   end
 
+  # PUT /posts/:id
   def update
     @post = Post.find(params[:id])
 
@@ -69,6 +65,7 @@ class PostsController < ApplicationController
   end
   
   private 
+    # only 'title' and 'content' params are accepted through POST
     def post_params
       params.require(:post).permit(:title, :content)
     end
