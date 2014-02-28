@@ -74,10 +74,13 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
 
     template: 'templates/PostDetailView',
 
-    // Expose 'currentPage' field to the template
+    // Expose 'currentPage' field to the template and
+    // make creation/update dates human readable.
     serializeData: function(){
       return _.extend(this.model.toJSON(), {
-                currentPage: this.currentPage
+                currentPage: this.currentPage,
+                created_at: new Date(this.model.get('created_at')),
+                updated_at: new Date(this.model.get('updated_at'))
               });
     },
 

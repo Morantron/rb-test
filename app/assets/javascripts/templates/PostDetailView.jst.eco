@@ -7,12 +7,17 @@
     <label>Content</label>
     <textarea name="content" rows=15 class="form-control" placeholder="Post content"><%= @content %></textarea>
   </div>
+  <% if @id: %>
+  <div class="alert alert-info">
+    <p class="small"><b>Creation date:</b> <%= @created_at %></p>
+    <p class="small"><b>Last update:</b> <%= @updated_at %></p>
+  </div>
+  <% end %>
   <div class="form-group">
     <a href="#page/<%= @currentPage %>" class="btn btn-default">&larr;Back</a>
     <button class="btn btn-success save" disabled="disabled">Save</button>
     <% if @id: %>
     <button href="#" class="btn btn-danger delete">Delete</button>
     <% end %>
-    <span class="small label pull-right">Last edited on: <%= @updated_at %></span>
   </div>
 </form>
