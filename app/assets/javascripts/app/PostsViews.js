@@ -5,9 +5,14 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
   var helperFunctions = {
     deletePost: function(){
       if( confirm('Are you sure you want to delete this post?') ){
-        this.model.destroy();
-        App.vent.trigger("delete:post");
-        App.router.navigate("#", { trigger: true});
+        this.model.destroy()
+        .done(function(){
+          App.vent.trigger('delete:post');
+          App.router.navigate('#', { trigger: true});
+        })
+        .fail(function(){
+          App.vent.trigger('notification:error', 'Post not found in database.');
+        });
       }
       event.preventDefault();
     },
@@ -67,13 +72,18 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
       var isNew = that.model.isNew();
 
       this.model.save({
-        "title": this.ui.titleInput.val(),
-        "content": this.ui.contentTextArea.val()
+        'title': this.ui.titleInput.val(),
+        'content': this.ui.contentTextArea.val()
       }).done(function(model){
         if( isNew ){
-          App.vent.trigger("new:post", that.model);
-          App.router.navigate("#show/" + that.model.id, { trigger: true });
+          App.vent.trigger('new:post', that.model);
+          App.router.navigate('#show/' + that.model.id, { trigger: true });
+        } else {
+          App.vent.trigger('notification:success', 'Post updated.');
         }
+      }).fail(function(){
+        App.vent.trigger('notification:error', 'Could not update post. Please try again');
+        that.$el.find('input').trigger('input');
       });
 
       this.ui.saveButton.prop('disabled', true);

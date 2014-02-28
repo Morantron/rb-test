@@ -49,11 +49,12 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
+    @post.destroy
 
-    if @post.destroy
-      #render status: :ok
+    if @post.destroyed?
+      render json: @post, status: :ok
     else
-      #render status: :bad_request
+      render json: @post, status: :bad_request
     end
   end
 

@@ -60,12 +60,19 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
 
       var that = this;
 
-      // freshly added post, not in current page
+      // post not found in local collection
+      // ( maybe freshly added or directly accessed through url )
       if( !post ){
         post = new App.Posts.Post({ id: id });
-        post.fetch().done(function(){
+
+        post.fetch()
+        .done(function(){
           that._showDetailView(post);
+        }).fail(function(){
+          App.vent.trigger('notification:error', 'Post not found!');
+          App.router.navigate('', {trigger: true});
         });
+
       } else {
         this._showDetailView(post);
       }
@@ -76,6 +83,8 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
       );
     },
     gotoPage: function(pageNumber){
+      var that = this;
+
       pageNumber = parseInt(pageNumber);
       var lastPage = this.getLastPage();
 
@@ -85,8 +94,17 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
         pageNumber = 0;
       }
 
-      this.posts.getPage(pageNumber);
-      this.showList();
+      this.posts.getPage(pageNumber)
+      .done(function(){
+        that.showList();
+      })
+      .fail(function(){
+        App.vent.trigger('notification:error', 'Could not load posts, trying again ...');
+        setTimeout(function(){
+          that.gotoPage(pageNumber);
+        }, 1500);
+      });
+        
     },
     _showDetailView: function(post){
       var that = this;
