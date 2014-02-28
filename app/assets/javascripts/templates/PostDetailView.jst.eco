@@ -5,7 +5,7 @@
   </div>
   <div class="form-group">
     <label>Content</label>
-    <textarea name="content" class="form-control" placeholder="Post content"><%= @content %></textarea>
+    <textarea name="content" rows=15 class="form-control" placeholder="Post content"><%= @content %></textarea>
   </div>
   <div class="form-group">
     <a href="#page/<%= @currentPage %>" class="btn btn-default">&larr;Back</a>
