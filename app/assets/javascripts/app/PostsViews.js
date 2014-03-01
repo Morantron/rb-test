@@ -27,7 +27,7 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
 
     // Add 'excerpt' field: a limited length version of 'content' field
     serializeData: function(){
-      var excerptLength = 250;
+      var excerptLength = App.Constants.EXCERPT_LENGTH;
       var postContent = this.model.get('content');
 
       var output = _.extend(this.model.toJSON(),{
@@ -119,8 +119,8 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
       var titleCount = this.ui.titleInput.val().length;
       var contentCount = this.ui.contentTextArea.val().length;
 
-      this.ui.titleCharCount.html( titleCount + '/' + '255' );
-      this.ui.contentCharCount.html( contentCount + '/' + '4000' );
+      this.ui.titleCharCount.html( titleCount + '/' + App.Constants.TITLE_MAX_LENGTH );
+      this.ui.contentCharCount.html( contentCount + '/' + App.Constants.CONTENT_MAX_LENGTH);
     },
 
     deletePost: helperFunctions.deletePost,

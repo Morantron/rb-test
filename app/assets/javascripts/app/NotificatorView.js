@@ -11,7 +11,7 @@ App.module('NotificatorView', function(NotificatorView, App, Backbone, Marionett
 
       options = options || {};
       _.defaults(options,{
-        defaultDuration: 3000,
+        defaultDuration: App.Constants.DEFAULT_NOTIFICATION_DURATION,
         // CSS classes to style different kind of messages
         classNames: {
           'info': 'alert-info',

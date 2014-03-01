@@ -17,11 +17,11 @@ App.module('Posts', function(Posts, App, Backbone, Marionette, $, _){
     validate: function(attributes, options){
       var errors = [];
 
-      if( attributes.content.length > 4000 ){
+      if( attributes.content.length > App.Constants.CONTENT_MAX_LENGTH ){
         errors.push('Content too long. Maximum length is 4000');
       }
 
-      if( attributes.title.length > 255 ){
+      if( attributes.title.length > App.Constants.TITLE_MAXLENGTH ){
         errors.push('Title too long. Maximum length is 255');
       }
 

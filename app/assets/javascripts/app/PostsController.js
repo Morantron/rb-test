@@ -7,7 +7,7 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
       _.defaults(options, {
         posts: [],
         currentPage: 0,
-        pageSize: 5,
+        pageSize: App.Constants.PAGE_SIZE,
         totalCount: options.posts && options.posts.length
       });
 
@@ -130,7 +130,7 @@ App.module('PostsController', function(PostsController, App, Backbone, Marionett
         App.vent.trigger('notification:error', 'Could not load posts, trying again ...');
         setTimeout(function(){
           that.gotoPage(pageNumber);
-        }, 1500);
+        }, App.Constants.WAIT_FOR_RETRY_MS);
       });
         
     },
