@@ -11,8 +11,7 @@
 <% if @id: %>
 <div class="form-group">
   <div class="alert alert-info">
-    <p class="small"><b>Creation date:</b> <%= @created_at %></p>
-    <p class="small"><b>Last update:</b> <%= @updated_at %></p>
+    <p class="small">Created on <%= @created_at %></p>
   </div>
 </div>
 <% end %>
