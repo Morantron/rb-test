@@ -52,7 +52,9 @@ App.module('NotificatorView', function(NotificatorView, App, Backbone, Marionett
 
     // Hides notificator before rendering to achieve a proper fade-in effect
     onBeforeRender: function(){
-      this.$el.hide();
+      this.$el.css({
+        opacity: 0.0
+      });
     },
 
     // Shows a message for limited amount of time. Fades in, then fades out.
@@ -60,12 +62,12 @@ App.module('NotificatorView', function(NotificatorView, App, Backbone, Marionett
       this.message = msg;
       this.notificationType = this.classNames[notificationType];
       this.render();
-      this.$el.fadeIn();
+      this.$el.fadeTo('fast', 1.0);
       setTimeout(_.bind(this.hide, this), ms || this.defaultDuration);
     },
 
     hide: function(){
-      this.$el.fadeOut();
+      this.$el.fadeTo('to', 0.0);
     },
 
     info: function(msg, ms){
