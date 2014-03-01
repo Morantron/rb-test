@@ -97,7 +97,9 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
       deleteButton: '.delete',
       titleInput: 'input[name=title]',
       contentTextArea: 'textarea[name=content]',
-      backButton: '.history-back'
+      backButton: '.history-back',
+      titleCharCount: '.title-char-count',
+      contentCharCount: '.content-char-count'
     },
 
     events: {
@@ -110,6 +112,15 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
     // Enable @ui.saveButton when the changes are detected
     modelChanged: function(){
       this.ui.saveButton.prop('disabled', false);
+      this.updateCharCount();
+    },
+
+    updateCharCount: function(){
+      var titleCount = this.ui.titleInput.val().length;
+      var contentCount = this.ui.contentTextArea.val().length;
+
+      this.ui.titleCharCount.html( titleCount + '/' + '255' );
+      this.ui.contentCharCount.html( contentCount + '/' + '4000' );
     },
 
     deletePost: helperFunctions.deletePost,
@@ -136,7 +147,6 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
             App.vent.trigger('notification:success', 'Post updated.');
           }
         }).fail(function(){
-          debugger;
           App.vent.trigger('notification:error', 'Could not update post. Please try again');
           that.$el.find('input').trigger('input');
         });

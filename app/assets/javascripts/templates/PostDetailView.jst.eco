@@ -1,15 +1,19 @@
 <div class="form-group">
   <label>Title</label>
   <input type="text" name="title" class="form-control" value="<%= @title %>" placeholder="Post title"/>
+  <span class="title-char-count small pull-right"><%= @title.length %>/255</span>
 </div>
 <div class="form-group">
   <label>Content</label>
   <textarea name="content" rows=15 class="form-control" placeholder="Post content"><%= @content %></textarea>
+  <span class="content-char-count small pull-right"><%= @content.length %>/4000</span>
 </div>
 <% if @id: %>
-<div class="alert alert-info">
-  <p class="small"><b>Creation date:</b> <%= @created_at %></p>
-  <p class="small"><b>Last update:</b> <%= @updated_at %></p>
+<div class="form-group">
+  <div class="alert alert-info">
+    <p class="small"><b>Creation date:</b> <%= @created_at %></p>
+    <p class="small"><b>Last update:</b> <%= @updated_at %></p>
+  </div>
 </div>
 <% end %>
 <div class="form-group">

@@ -2,23 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-/*table {*/
+[class^=column-] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-  [class^=column-] {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .column-id, {
-    max-width: 20%;
-  }
-  .column-title {
-    max-width: 450px;
-  }
-  .column-content {
-    max-width: 450px;
-  }
-  .column-actions {
-  }
-
-/*}*/
+.column-id, {
+  max-width: 30px !important;
+}
+.column-title {
+  max-width: 450px !important;
+}
+.column-content {
+  max-width: 450px !important;
+}
+.column-actions {
+  max-width: 30px !important;
+}
