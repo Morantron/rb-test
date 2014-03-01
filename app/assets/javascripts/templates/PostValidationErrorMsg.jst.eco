@@ -1,0 +1,6 @@
+The following errors where detected:
+<ul>
+  <% for error in @errors: %>
+    <li><%= error %></li>
+  <% end %>
+</ul>

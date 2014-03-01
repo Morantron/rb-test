@@ -1,4 +1,5 @@
 //= require app/app.js
+//= require_tree ../templates
 
 App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
 
@@ -63,15 +64,22 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
   // Post detail view
   PostsViews.Detail = Marionette.ItemView.extend({
     initialize: function(options){
+      var that = this;
       // 'currentPage' is passed as an argument in order to recover the correct
       // page when the user presses the back button.
-
       _.defaults(options, {
         currentPage: 0
       });
       this.currentPage = options.currentPage;
+
+      // notify validation errors
+      this.model.on('invalid', function(model, errors){
+        var errorMsg = that.errorTemplate({ errors: errors });
+        App.vent.trigger('notification:error', errorMsg);
+      });
     },
 
+    errorTemplate: JST['templates/PostValidationErrorMsg'],
     template: 'templates/PostDetailView',
 
     // Expose 'currentPage' field to the template and
@@ -111,21 +119,28 @@ App.module('PostsViews', function(PostsViews, App, Backbone, Marionette, $, _){
       var that = this;
       var isNew = that.model.isNew();
 
-      this.model.save({
+
+      // if validation fails it doesn't return an xhr
+      var xhr = this.model.save({
         'title': this.ui.titleInput.val().trim(),
         'content': this.ui.contentTextArea.val().trim()
-      }).done(function(model){
-        if( isNew ){
-          // notify that a new post has been created and navigate to its detail
-          App.vent.trigger('new:post', that.model);
-          App.router.navigate('#show/' + that.model.id, { trigger: true });
-        } else {
-          App.vent.trigger('notification:success', 'Post updated.');
-        }
-      }).fail(function(){
-        App.vent.trigger('notification:error', 'Could not update post. Please try again');
-        that.$el.find('input').trigger('input');
       });
+
+      if( xhr ){
+        xhr.done(function(model){
+          if( isNew ){
+            // notify that a new post has been created and navigate to its detail
+            App.vent.trigger('new:post', that.model);
+            App.router.navigate('#show/' + that.model.id, { trigger: true });
+          } else {
+            App.vent.trigger('notification:success', 'Post updated.');
+          }
+        }).fail(function(){
+          debugger;
+          App.vent.trigger('notification:error', 'Could not update post. Please try again');
+          that.$el.find('input').trigger('input');
+        });
+      }
 
       this.ui.saveButton.prop('disabled', true);
       event.preventDefault();

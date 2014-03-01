@@ -11,6 +11,23 @@ App.module('Posts', function(Posts, App, Backbone, Marionette, $, _){
       content: '',
       created_at: '',
       updated_at: ''
+    },
+
+    // Validation rules
+    validate: function(attributes, options){
+      var errors = [];
+
+      if( attributes.content.length > 4000 ){
+        errors.push('Content too long. Maximum length is 4000');
+      }
+
+      if( attributes.title.length > 255 ){
+        errors.push('Title too long. Maximum length is 255');
+      }
+
+      if( errors.length ){
+        return errors; //cancel save
+      }
     }
   });
 
